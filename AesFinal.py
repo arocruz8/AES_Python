@@ -9,19 +9,19 @@ llave = token_bytes(16)
 
 ##Función que encripta
 def encriptar(msg):
-    cifrado = AES.new(llave, AES.MODE_EAX)
-    nonce = cifrado.nonce
+    cipher = AES.new(llave, AES.MODE_EAX)
+    nonce = cipher .nonce
     ##se aplica el algoritmo de encriptacion
-    textocifrado, tag = cifrado.encrypt_and_digest(msg.encode('ascii'))
+    textocifrado, tag = cipher .encrypt_and_digest(msg.encode('ascii'))
     return nonce, textocifrado, tag
 
 ##Función que desencriptado
 def desencriptar(nonce, textocifrado, tag):
-    cifrado  = AES.new(llave, AES.MODE_EAX, nonce=nonce)
+    cipher   = AES.new(llave, AES.MODE_EAX, nonce=nonce)
     ##aplica el algoritmo para desencriptar el texto cifrado
-    textInicial =  cifrado.decrypt(textocifrado)
+    textInicial =  cipher .decrypt(textocifrado)
     try:
-        cifrado.verify(tag)
+        cipher.verify(tag)
         ##retorna el algoritmo desencriptado
         return textInicial.decode('ascii')
     except:
